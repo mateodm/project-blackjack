@@ -1,0 +1,55 @@
+<section class="h-100">
+	<div class="background container h-100">
+		<div class="row justify-content-sm-center h-100">
+			<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+				<div class="text-center my-5">
+				</div>
+				<div
+					class="card-login card d-flex align-items-center shadow-lg animate__animated animate__bounceInDown">
+					<div class="card-body p-5 pb-0 my-3">
+						<h1 class="fs-4 card-title fw-bold mb-4">Iniciar sesion</h1>
+						<form onsubmit="login(event)">
+							<div class="card-login-text mb-3">
+								<label class="mb-2 text" for="email">Correo electronico</label>
+								<input id="lemail" type="email" class="form-control" name="email" value="" required
+									autofocus>
+								<div class="invalid-feedback">
+									El mail no es valido
+								</div>
+							</div>
+
+							<div class="card-login-text mb-3">
+								<div class="mb-2 w-100">
+									<label class="text me-2" for="password">Contraseña</label>
+									<a href="/forgot" class="float-end text-success forgot-pass">
+										¿Olvidaste tu contraseña?
+									</a>
+								</div>
+								<input id="lpassword" type="password" class="form-control" name="password" required>
+								<div class="invalid-feedback">
+									La contraseña es requerida
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<button type="submit" class="boton-login btn btn-success ms-auto">
+									Iniciar sesión
+								</button>
+							</div>
+						</form>
+						<div class="d-flex align-items-center my-2">
+							<button type="submit" class="boton-login btn btn-success ms-auto">
+								<a class="text-decoration-none" style="color: white;"  href="/api/auth/google/callback">Iniciar sesión con <img class="logo-google" src="/imagenes/logo-google.png"></a>
+							</button>
+						</div>
+					</div>
+					<div class="card-footer py-3 border-0">
+						<div class="text-center">
+							¿No tienes una cuenta? <a href="/register" class="text-success forgot-pass">Registrate</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,38 @@
+<section class="h-100">
+    <div class="background container h-100">
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                <div class="text-center">
+                </div>
+                <div class="profile-card card d-flex align-items-center shadow-lg">
+                    <div class="profile-card-body card-body animate__animated animate__bounceInLeft">
+                        <h1
+                            class="fs-4 card-title fw-bold mb-4 d-flex justify-content-center animate__animated animate__bounceInDown">
+                            Ranking global</h1>
+                        <ul class="list-group">
+                            <li class="list-group-item ranking-table">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-2 ranking-table-top">N°</div>
+                                    <div class="col-5 ranking-table-user">Usuario</div>
+                                    <div class="col-5 ranking-table-chips">Cantidad de fichas:</div>
+                                </div>
+                            </li>
+                            {{#each users}}
+                            <li class="list-group-item ranking-table">
+                                <div class="row">
+                                    <div class="col-2 ranking-table-top">{{rank}}</div>
+                                    <div class="col-5 ranking-table-user">{{username}}</div>
+                                    <div class="col-5 ranking-table-chips">{{chips}} coins</div>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                        <div class="d-flex justify-content-center my-3">
+                            <button class="boton-login p-2"><a class="profile-href" href="/">Volver al menú</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,35 @@
+<section class="h-100">
+    <div class="background container h-100"> 
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                <div class="text-center my-5">
+                </div>
+                <div class="menu-card card d-flex align-items-center shadow-lg">
+                    <div class="card-body p-5">
+                        <h1 class="fs-4 card-title fw-bold mb-4 animate__animated animate__bounceInDown">¡Te damos la bienvenida!</h1>
+                        <div class="avatar-img"><img  class="avatar-img-border mb-3" src="{{{avatar}}}"><img></div>
+                        <div class="username mb-2">{{{username}}}</div>
+                        <div class="separator"></div>
+                        <ul class="list-group list-group-flush d-flex justify-content-center animate__animated animate__bounceInLeft">
+                            <li class="list-group-item menu-options">
+                                <a href="/blackjack" class="text-decoration-none menu-options-href">Jugar al blackjack</a>
+                            </li>
+                            <li class="list-group-item menu-options">
+                                <a href="" class="text-decoration-none menu-options-href">Jugar al truco</a>
+                            </li>
+                            <li class="list-group-item menu-options">
+                                <a href="/estadisticas" class="text-decoration-none menu-options-href">Estadísticas</a>
+                            </li>
+                            <li class="list-group-item menu-options">
+                                <a href="/profile/{{{username}}}" class="text-decoration-none menu-options-href">Mi perfil</a>
+                            </li>
+                            <li class="list-group-item menu-options d-flex justify-content-center">  
+                                    <button class="menu-options-href" onclick="logout()">Cerrar sesión</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,70 @@
+<section class="bj-background">
+    <div class="row header-bj">
+        <div class="col-4 avatar-container">
+            <img class="avatar-bj" src="{{{avatar}}}"><img>
+            <div class="username-bj mr-4"> {{{username}}}</div>
+        </div>
+        <div class="col-1"></div>
+        <div id="howbet" class="col-5 ronda-bj"></div>
+        <div class="col-2 chips-bj">Saldo: {{{chips}}}</div>
+    </div>
+    <div id="arena-bet" class="row arena-bj-bet my-5 mb-5">
+        <div class="bj-container-balance mb-5">
+            Tu saldo es de: {{{chips}}} fichas
+        </div>
+        <div class="bj-container-balance mb-3">
+            Selecciona tu apuesta a continuación:
+        </div>
+        <div class="bj-container-chip">
+            <img class="bj-chip" onclick="totalBet(50, {{{chips}}})" src="/imagenes/ficha50a.png">
+            <img class="bj-chip" onclick="totalBet(100, {{{chips}}})" src="/imagenes/ficha100.png">
+            <img class="bj-chip" onclick="totalBet(500, {{{chips}}})" src="/imagenes/ficha500.png">
+            <img class="bj-chip" onclick="totalBet(1000, {{{chips}}})" src="/imagenes/ficha1000.png">
+            <img class="bj-chip" onclick="totalBet(5000, {{{chips}}})" src="/imagenes/ficha5000.png">
+            <img class="reset-bet" onclick="resetBet()" src="/imagenes/reset.png">
+        </div>
+        <div class="row bet-chips-container">
+            <div class="col-3"></div>
+            <div class="bj-container-balance mb-5">
+                <button onclick="startGame()" class="bet-button">Empezar la partida</button>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+
+    <div id="arena-bj-d" class="row arena-bj d-none">
+        <div class="col-md-4 baraja">
+            <img class="baraja-img" src="../imagenes/mazo.png">
+        </div>
+        <div id="dealerCards" class="cards-bj col-md-4">
+        </div>
+        <div id="puntuationDealer" class="score col-md-4">
+
+        </div>
+    </div>
+    <div id="arena-bj-p" class="row arena-bj d-none">
+        <div class="col-md-4 options-bj">
+            <div id="options-bj">
+
+            </div>
+        </div>
+        <div id="playerCards" class="cards-bj col-md-4">
+        </div>
+        <div id="puntuationPlayer" class="score col-md-4">
+
+        </div>
+    </div>
+    <div class="row bet-chips-container">
+        <div class="col-3"></div>
+        <div id="addChips" class="col-6 d-flex justify-content-center bet-chips">
+
+        </div>
+        <div class="col-3">
+            <div id="totalBet" class="bj-container-balance my-3" style="display: none;">
+                0
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+<script src="/js/socket.js"></script>
