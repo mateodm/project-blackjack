@@ -1,0 +1,56 @@
+.body {
+    background: url('../imagenes/background.jpg') center center fixed;
+    background-size: cover;
+    font-family: "Kode Mono", monospace;
+}
+
+.body-2 {
+    background: url('../imagenes/background1.jpg') center center fixed;
+    background-size: cover;
+    font-family: "Kode Mono", monospace;
+
+}
+
+.body-3 {
+    background: url('../imagenes/background2.jpg') center center fixed;
+    background-size: cover;
+    font-family: "Kode Mono", monospace;
+}
+
+/* SWALFIRE configs */
+
+.custom-swal-background {
+    background: url('./imagenes/mesa2.png') center center fixed;
+    background-size: cover;
+}
+
+.custom-swal-text-color {
+    opacity: 1;
+    text-decoration: none;
+    color: white !important;
+}
+
+.custom-swal-text-size {
+    font-size: 1.45em;
+    margin-right: 0.7em;
+}
+
+.custom-swal-success {
+    background: url("./imagenes/blackjacktable.png")
+}
+
+.success-icon {
+    height: 1.6em;
+    margin-right: 0.7em;
+    margin-bottom: 0.1em;
+}
+
+.swal2-popup {
+    margin-top: 20px;
+    margin-right: 20px;
+    border-radius: 5%;
+}
+
+.logo-error {
+    width: 13vh;
+}

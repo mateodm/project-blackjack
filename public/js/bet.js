@@ -22,6 +22,7 @@ function totalBet(bet, balance) {
                 addChips.innerHTML += `<img class="bj-chip-bet" src="/imagenes/ficha5000.png">`
             }
                 docToModify.innerText = newAmount
+            coin.play()
             return
         }
         else {
@@ -69,7 +70,7 @@ function startGame() {
         arenap.classList.remove("d-none")
         removeBet.classList.add("d-none")
         howBet.innerHTML = `Tu apuesta es de ${totalAmount}`
-        activeSocket()
+        activeSocket(totalAmount)
         return
     }
     else {

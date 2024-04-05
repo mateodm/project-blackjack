@@ -21,14 +21,14 @@
                             <li class="list-group-item ranking-table">
                                 <div class="row">
                                     <div class="col-2 ranking-table-top">{{rank}}</div>
-                                    <div class="col-5 ranking-table-user">{{username}}</div>
+                                    <div class="col-5 ranking-table-user"> <a class="profile-redirect button-sound" href="/profile/{{username}}">{{username}}</a></div>
                                     <div class="col-5 ranking-table-chips">{{chips}} coins</div>
                                 </div>
                             </li>
                             {{/each}}
                         </ul>
                         <div class="d-flex justify-content-center my-3">
-                            <button class="boton-login p-2"><a class="profile-href" href="/">Volver al menú</a></button>
+                            <button class="boton-login p-2 button-sound"><a class="profile-href" href="/">Volver al menú</a></button>
                         </div>
                     </div>
                 </div>

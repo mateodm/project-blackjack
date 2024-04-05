@@ -19,7 +19,9 @@ router.get("/register", isLoged, async (req, res) =>{
 router.get("/", passport_call("jwt"), async (req, res) => {
     const secretKey = config.jwt_secret
     let verify = jwt.verify(req.cookies.token, secretKey)
-    return res.render("menu", {username: verify.user, avatar: verify.avatar})
+    let email = JSON.stringify(verify.email)
+    let user = await userService.getByEmailSafe(verify.email)
+    return res.render("menu", {username: verify.user, email: email, avatar: verify.avatar, chips: user.chips})
 })
 router.get("/forgot", isLoged, async(req, res) => {
     return res.render("forgot")
@@ -60,7 +62,6 @@ router.get("/blackjack", passport_call("jwt"), async(req, res) => {
     const secretKey = config.jwt_secret
     let verify = jwt.verify(req.cookies.token, secretKey)
     let user = await userService.findOne({username: verify.user})
-    await blackjackGameInstance.startGameBet()
     return res.render("blackjack", { username: verify.user, avatar: verify.avatar, chips: user.chips})
 })
 

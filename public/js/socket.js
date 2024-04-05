@@ -1,13 +1,14 @@
 let socket;
 
-function activeSocket() {
+function activeSocket(bet) {
     socket = io("http://localhost:8080");
     socket.on("connect", () => {
-        socket.emit("start-game")
+        socket.emit("start-game", bet)
         socket.emit("puntuationTotal")
         setTimeout(reverseCard, 2700)
     });
     socket.on("petitionPCards", data => {
+        cardSound.play()
         let container = document.getElementById("playerCards");
         let html = '';
         let delay = 1.5
@@ -19,7 +20,14 @@ function activeSocket() {
         container.innerHTML += html;
         socket.emit("puntuationTotal")
     });
+    socket.on("options", data => {
+        let opacity = document.getElementById("opacity")
+        let options = document.getElementById("options")
+        opacity.classList.add("bj-opacity")
+        options.classList.remove("d-none")
+    })
     socket.on("petitionDCards", (data, round) => {
+        cardSound.play()
         let container = document.getElementById("dealerCards");
         let html = '';
         let delay = 2
@@ -31,16 +39,21 @@ function activeSocket() {
         container.innerHTML += html;
         socket.emit("puntuationTotal")
     });
-
+    socket.on("flipCard", () => {
+      let toFlip = document.getElementsByClassName("reverse-card-dealer");
+      while (toFlip.length > 0) {
+          toFlip[0].parentNode.removeChild(toFlip[0]);
+          return
+      }
+    })
     socket.on("puntuationDOM", (playerScore, dealerScore, round) => {
         let pScore = document.getElementById("puntuationPlayer").innerHTML = `Puntuacion del jugador: ${playerScore}`
         let dScore = document.getElementById("puntuationDealer").innerHTML = `Puntuacion del dealer: ${dealerScore}`
-        let roundDOM = document.getElementById("round").innerHTML = `Tu apuesta es de: ${round}`
         return
     })
     socket.on("result", (checkResult) => {
-        console.log(checkResult)
         if (checkResult.whoLose === "dealer") {
+            winSound.play()
             Swal.fire({
                 title: `Has ganado por ${checkResult.as}`,
                 text: `Tu puntuación: ${checkResult.puntuationP}, Puntuación dealer: ${checkResult.puntuationD}` ,
@@ -85,6 +98,7 @@ function activeSocket() {
               });
         }
         else if(checkResult.whoLose === "player"){
+            loseSound.play()
             Swal.fire({
                 title: `Has perdido por ${checkResult.as}`,
                 text: `Tu puntuación: ${checkResult.puntuationP} Puntuación dealer: ${checkResult.puntuationD}` ,
@@ -106,53 +120,8 @@ function activeSocket() {
                 }
               });
         }
+        socket.emit("finish-game", checkResult)
         setTimeout(redirectToBet, 4000)
     })
 }
 
-
-function reverseCard() {
-    let container = document.getElementById("dealerCards")
-    let html = `
-    <img class="cards-bj-img reverse-card-dealer" 
-        src="../cartas bj/reverse card.png">
-    </img>`;
-    container.innerHTML += html;
-}
-function optionsBJ() {
-    let container = document.getElementById("options-bj").innerHTML =
-        `
-        <button onclick="orderCard()" class="order-button">Pedir más</button>       
-        <button onclick="stay()" class="stay-button">Plantarse</button>
-        <button class="surrender-button">Rendirse</button>
-        `
-}
-function hideOptionsBJ() {
-    let container = document.getElementById("options-bj");
-    if (container) {
-        container.innerHTML = "";
-        setTimeout(optionsBJ, 4000);
-    }
-}
-function flipCard() {
-    let toFlip = document.getElementsByClassName("reverse-card-dealer");
-    while (toFlip.length > 0) {
-        toFlip[0].parentNode.removeChild(toFlip[0]);
-        return
-    }
-}
-function redirectToBet() {
-    window.location.href = "/blackjack"
-}
-setTimeout(optionsBJ, 2800)
-
-function orderCard() {
-    hideOptionsBJ()
-    socket.emit("ordered-card")
-}
-function stay() {
-    hideOptionsBJ()
-    flipCard()
-    socket.emit("stay")
-
-}

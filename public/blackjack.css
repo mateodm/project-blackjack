@@ -1,0 +1,182 @@
+
+.bj-background {
+    background-image: url("./imagenes/blackjacktable.png");
+    background-size: cover;
+    font-family: "Kode Mono", monospace;
+    height: 100vh;
+    width: 99vw;
+    
+  }
+  .bj-opacity {
+    opacity: 0.15
+  }
+  .bj-options-container {
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-evenly; 
+    align-items: center; 
+  }
+  .bj-options-container button {
+    margin: 0 60px;
+  }
+  .header-bj {
+    background-image: url("./imagenes/borde-bj.png");
+    background-size: cover;
+    height: 12vh;
+    width: 101.6%;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 10%; 
+    border-bottom-right-radius: 10%; 
+  
+  }
+  
+  .avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .avatar-bj {
+    height: 6vh;
+    border-radius: 50%;
+    border: solid 1px black;
+  }
+  .username-bj {
+    font-size: 1.2em;
+    margin-left: 0.4vw;
+  }
+  .container-boton-bj {
+    display: flex;
+    justify-content: end;
+  }
+  .boton-bj {
+    background-image: url("./imagenes/blackjacktable.png");
+    border: none;
+    color: white;
+    height: 4.5vh;
+  }
+  .boton-bj-a {
+    text-decoration: none;
+    color: white;
+  }
+  .bj-container-balance {
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    font-size: 22.5px;
+  }
+  .bj-container-chip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .bj-chip {
+    width: 12vh;
+  }
+  .bj-chip:hover {
+    opacity: 0.8;
+  }
+  .bj-chip-bet {
+    width: 12vh;
+    margin-left: -7.5vh;
+  }
+  .reset-bet {
+    width: 7vh;
+    color: red;
+  }
+  .reset-bet:hover {
+    opacity: 0.8;
+  }
+  .bet-button {
+    background-image: url("./imagenes/blackjacktable.png");
+    margin-top: 4.5vh;
+    padding: 1.2vh;
+    color: white;
+    border: white;
+    border-radius: 5%;
+  }
+  .bet-button:hover {
+    opacity: 0.7;
+  }
+  .arena-bj {
+    height: 35.5vh;
+    width: 98.5vw;
+  }
+  .arena-bj-bet {
+    height: 50vh;
+    width: 99vw;
+  }
+  .baraja {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .baraja-img {
+    height: 19vh;
+  }
+  .cards-bj {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cards-bj-img {
+    height: 19vh;
+    margin-left: -2vw;
+    border: solid 1px;
+  }
+  .cards-bj-img:hover {
+    zoom: 1.2;
+  }
+  .options-bj {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .bj-options-icons {
+    height: 11vh;
+  }
+  .order-button {
+    background-color: transparent;
+    border: none; 
+    padding: 0;
+    color: white;
+    font-size: 1.2em;
+  }
+  .order-button:hover {
+    opacity: 0.7;
+  }
+  .footer-bj {
+      background-image: url("./imagenes/borde-bj.png");
+      background-size: cover;
+      height: 16vh;
+  }
+  .bet-chips-container {
+    height: 12vh;
+  }
+  .bet-chips {
+    border: solid 1px white;
+    border-radius: 5%;
+  }
+  .footer-bj-bet {
+    background-image: url("./imagenes/borde-bj.png");
+    background-size: cover;
+    height: 26.4vh;
+    margin-top: 6vh;
+  }
+  .score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2em;
+  }
+  .new-card {
+    animation-duration: 1s; 
+  }
+  

@@ -12,21 +12,27 @@ class blackjackGame {
         this.bet = 0
         this.winner = "no"
     }
-    async startGameBet(bet) {
+    async startGame() {
         try {
             this.baraja = await cardsService.getAll();
             this.playerCards = [];
             this.dealerCards = [];
             this.dealerHideCard = 0
             this.round = 1
-            this.bet = bet
             this.winner = "no"
             return
         }
         catch (e) {
             console.log(e)
         }
-
+    }
+    async setBet(bet) {
+        try {
+            this.bet = bet
+        }
+        catch(e) {
+            console.log(e)
+        }
     }
     async stay() {
         let dealerScore = await this.score("dealer")
@@ -52,7 +58,7 @@ class blackjackGame {
         }
     }
     async orderCard(who) {
-        let random = Math.ceil(Math.random() * this.baraja.length)
+        let random = Math.floor(Math.random() * this.baraja.length)
         let card = this.baraja.splice(random, 1)[0]
         if (who === "dealer") {
             this.dealerCards.push(card)
@@ -70,7 +76,7 @@ class blackjackGame {
     }
     async score(who) {
         let value = 0;
-        let asCount = 0; // Contador para la cantidad de Ases
+        let asCount = 0; 
         if (who === "dealer") {
             this.dealerCards.forEach(dCard => {
                 if (dCard.value === 1) {
@@ -100,19 +106,19 @@ class blackjackGame {
         switch (check) {
             case "both":
                 if (dealerScore > 21) {
-                    return { finish: true, puntuationD: dealerScore, puntuationP: playerScore, whoLose: "dealer", as: "bancarrota"};
+                    return { finish: true, puntuationD: dealerScore, puntuationP: playerScore, whoLose: "dealer", as: "bancarrota", bet: this.bet};
                 } else if (playerScore > 21) {
-                    return { finish: true, puntuationP: playerScore, puntuationD: dealerScore, whoLose: "player" , as: "bancarrota"};
+                    return { finish: true, puntuationP: playerScore, puntuationD: dealerScore, whoLose: "player" , as: "bancarrota", bet: this.bet};
                 } else {
                     return { finish: false }; 
                 }
             case "comparate":
                 if (dealerScore > playerScore) {
-                    return { finish: true, puntuationD: dealerScore, puntuationP: playerScore, whoLose: "player", as:"puntuación" };
+                    return { finish: true, puntuationD: dealerScore, puntuationP: playerScore, whoLose: "player", as:"puntuación", bet: this.bet };
                 } else if (dealerScore < playerScore) {
-                    return { finish: true, puntuationP: playerScore, puntuationD: dealerScore,whoLose: "dealer", as:"puntuación" };
+                    return { finish: true, puntuationP: playerScore, puntuationD: dealerScore,whoLose: "dealer", as:"puntuación", bet: this.bet};
                 } else if (dealerScore === playerScore) {
-                    return { finish: true, puntuationP: playerScore, puntuationD: dealerScore, whoLose: "draw" };
+                    return { finish: true, puntuationP: playerScore, puntuationD: dealerScore, whoLose: "draw", bet: this.bet };
                 }
             default:
         }
@@ -127,6 +133,7 @@ class blackjackGame {
         this.dealerCards = [];
         this.dealerHideCard = 0
         this.round = 1
+        this.bet = 0
         return
     }
     async invalidGame() {
@@ -135,6 +142,7 @@ class blackjackGame {
         this.dealerCards = [];
         this.dealerHideCard = 0
         this.round = 1
+        this.bet = 0
         return
     }
 }

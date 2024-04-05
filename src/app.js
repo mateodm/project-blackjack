@@ -45,9 +45,13 @@ configureSocket(httpServer)
 
 server.engine("handlebars", engine({
   helpers: {
-    ifEquals: function (arg1, arg2, options) {
-      return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
-    }
+    comparate: function(valor1, valor2, options) {
+      if (valor1 < valor2) {
+          return options.fn(this);
+      } else {
+          return options.inverse(this);
+      }
+  }
   }
 }));
 

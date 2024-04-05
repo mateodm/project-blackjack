@@ -8,15 +8,23 @@ export default class UserManager {
         try {
             return await this.users.find().select('-password -age -email').lean()
         }
-        catch(e) {
+        catch (e) {
+            console.log(e)
+        }
+    }
+    async getByEmailSafe(email) {
+        try {
+            return await this.users.findOne({ email: email }).select('-password -age -email').lean()
+        }
+        catch (e) {
             console.log(e)
         }
     }
     async getByEmail(email) {
         try {
-            return await this.users.findOne({email: email})
+            return await this.users.findOne({ email: email })
         }
-        catch(e) {
+        catch (e) {
             console.log(e)
         }
     }
@@ -24,7 +32,7 @@ export default class UserManager {
         try {
             return await this.users.findOne(param)
         }
-        catch(e) {
+        catch (e) {
             console.log(e)
         }
     }
@@ -32,13 +40,13 @@ export default class UserManager {
         try {
             return await this.users.create(user)
         }
-        catch(e) {
+        catch (e) {
             console.log(e)
         }
     }
     async delete(email) {
         try {
-            return await this.users.findOneAndDelete({email: email})
+            return await this.users.findOneAndDelete({ email: email })
         }
         catch (e) {
             console.log(e)
@@ -46,9 +54,44 @@ export default class UserManager {
     }
     async update(email, toUpdate) {
         try {
-            return await this.users.findOneAndUpdate({email: email, toUpdate})
+            return await this.users.findOneAndUpdate({ email: email, toUpdate })
         }
-        catch(e) {
+        catch (e) {
+            console.log(e)
+        }
+    }
+    async betResult(user, bet, status) {
+        try {
+            let userFind = await this.users.findOne({ username: user }).select('-password -age -email')
+            if (status === "dealer") {
+                let newBalance = Number(userFind.chips) + Number(bet)
+                return await this.users.findOneAndUpdate({ username: user }, { chips: newBalance })
+            }
+            else if (status === "player") {
+                let newBalance = Number(userFind.chips) - Number(bet)
+                return await this.users.findOneAndUpdate({ username: user }, { chips: newBalance })
+            }
+            else if (status === "draw") {
+                return
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+    async getFreeCoins(email) {
+        try {
+            let user = await this.users.findOne({ email: email }).select('-password -age -email')
+            if (user.chips <= 100) {
+                await this.users.findOneAndUpdate({ email: email, chips: 100 })
+                let response = {success: true}
+                return response
+            }
+            else {
+                return
+            }
+        }
+        catch (e) {
             console.log(e)
         }
     }

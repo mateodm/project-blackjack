@@ -90,7 +90,15 @@ class UserController {
             console.log(e)
         }
     }
+    async getFreeCoins(req, res) {
+        try {
+            return await userService.getFreeCoins(req.body.email)
+        }
+        catch(e) {
+            console.log(e)
+        }
+    }
 }
 
-const { getUsers, getUser, createUser, login, logout, forgot, reset } = new UserController()
-export { getUsers, getUser, createUser, login, logout, forgot, reset }
+const { getUsers, getUser, createUser, login, logout, forgot, reset, getFreeCoins } = new UserController()
+export { getUsers, getUser, createUser, login, logout, forgot, reset, getFreeCoins }
