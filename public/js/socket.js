@@ -1,7 +1,7 @@
 let socket;
 
 function activeSocket(bet) {
-    socket = io("http://localhost:8080");
+    socket = io();
     socket.on("connect", () => {
         socket.emit("start-game", bet)
         socket.emit("puntuationTotal")
