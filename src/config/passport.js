@@ -86,7 +86,7 @@ export default function () {
     passport.use(new GoogleStrategy({
         clientID: config.googleID,
         clientSecret: config.googleSecret,
-        callbackURL: "/api/auth/google/callback",
+        callbackURL: "https://project-blackjack.onrender.com/api/auth/google/callback",
         session: false,
         scope: ['profile', 'email']
     }, async  (accessToken, refreshToken, user, done) => {
