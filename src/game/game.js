@@ -147,5 +147,4 @@ class blackjackGame {
     }
 }
 
-const blackjackGameInstance = new blackjackGame();
-export default blackjackGameInstance;
+export default blackjackGame;

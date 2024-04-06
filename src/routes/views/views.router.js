@@ -21,7 +21,8 @@ router.get("/", passport_call("jwt"), async (req, res) => {
     let verify = jwt.verify(req.cookies.token, secretKey)
     let email = JSON.stringify(verify.email)
     let user = await userService.getByEmailSafe(verify.email)
-    return res.render("menu", {username: verify.user, email: email, avatar: verify.avatar, chips: user.chips})
+    let id = JSON.stringify(user._id)
+    return res.render("menu", {username: verify.user, id: id, avatar: verify.avatar, chips: user.chips})
 })
 router.get("/forgot", isLoged, async(req, res) => {
     return res.render("forgot")

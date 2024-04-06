@@ -25,14 +25,12 @@
   .header-bj {
     background-image: url("./imagenes/borde-bj.png");
     background-size: cover;
-    height: 12vh;
+    height: 9vh;
     width: 101.6%;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom-left-radius: 10%; 
-    border-bottom-right-radius: 10%; 
   
   }
   

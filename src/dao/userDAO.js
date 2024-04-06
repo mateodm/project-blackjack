@@ -79,13 +79,12 @@ export default class UserManager {
             console.log(e)
         }
     }
-    async getFreeCoins(email) {
+    async getFreeCoins(id) {
         try {
-            let user = await this.users.findOne({ email: email }).select('-password -age -email')
+            let user = await this.users.findById(id).select('-password -age')
             if (user.chips <= 100) {
-                await this.users.findOneAndUpdate({ email: email, chips: 100 })
-                let response = {success: true}
-                return response
+                let coins = await this.users.findByIdAndUpdate(id, { chips: 100})
+                return 
             }
             else {
                 return

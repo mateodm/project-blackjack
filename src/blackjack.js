@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { delay } from '../utils/utils.js';
-import blackjackGameInstance from "./game/game.js";
+import blackjackGame from "./game/game.js";
 import jwt from "jsonwebtoken"
 import userService from "./service/index.service.js";
 import config from "./config/config.js";
@@ -26,20 +26,21 @@ export function configureSocket(server) {
     });
 
     socketServer.on("connection", async (socket) => {
+        const game = new blackjackGame()
         socket.on("start-game", async (bet) => {
             let user = await userService.getByEmailSafe(socket.email)
             if (user.chips >= bet) {
-                await blackjackGameInstance.startGame()
-                let card = await blackjackGameInstance.orderCard("player");
+                await game.startGame()
+                let card = await game.orderCard("player");
                 socket.emit("petitionPCards", card,);
                 await delay(0.75);
-                let card2 = await blackjackGameInstance.orderCard("dealer");
+                let card2 = await game.orderCard("dealer");
                 socket.emit("petitionDCards", card2,);
                 await delay(0.75);
-                let card3 = await blackjackGameInstance.orderCard("player");
+                let card3 = await game.orderCard("player");
                 socket.emit("petitionPCards", card3,);
-                let card4 = await blackjackGameInstance.orderCard("dealerHide");
-                await blackjackGameInstance.setBet(bet)
+                let card4 = await game.orderCard("dealerHide");
+                await game.setBet(bet)
                 await delay(3)
                 socket.emit("options")
                 await delay(1)
@@ -50,9 +51,9 @@ export function configureSocket(server) {
         });
 
         socket.on("ordered-card", async () => {
-            let newCard = await blackjackGameInstance.orderCard("player");
+            let newCard = await game.orderCard("player");
             socket.emit("petitionPCards", newCard);
-            let result = await blackjackGameInstance.checkScore("both");
+            let result = await game.checkScore("both");
             if (result.finish === true) {
                 socket.emit("result", result)
             }
@@ -63,21 +64,21 @@ export function configureSocket(server) {
         });
 
         socket.on("stay", async () => {
-            let newCard = await blackjackGameInstance.showCard();
+            let newCard = await game.showCard();
             socket.emit("petitionDCards", newCard, 2);
             socket.emit("flipCard")
             await delay(1.5)
-            let dealerScore = await blackjackGameInstance.score("dealer");
+            let dealerScore = await game.score("dealer");
             while (dealerScore <= 16) {
                 await delay(1)
-                let newDCard = await blackjackGameInstance.orderCard("dealer");
-                dealerScore = await blackjackGameInstance.score("dealer");
+                let newDCard = await game.orderCard("dealer");
+                dealerScore = await game.score("dealer");
                 socket.emit("petitionDCards", newDCard, 2);
                 await delay(1.5);
             }
-            let check1 = await blackjackGameInstance.checkScore("both");
+            let check1 = await game.checkScore("both");
             if (check1.finish === false) {
-                let check2 = await blackjackGameInstance.checkScore("comparate");
+                let check2 = await game.checkScore("comparate");
                 socket.emit("result", check2)
             }
             else {
@@ -86,26 +87,26 @@ export function configureSocket(server) {
         });
         socket.on("double", async () => {
             let user = await userService.getByEmailSafe(socket.email)
-            let oldBet = await blackjackGameInstance.bet
+            let oldBet = await game.bet
             let newBet = oldBet * 2;
             if (user.chips >= newBet) {
-                await blackjackGameInstance.setBet(newBet)
-                let newCard = await blackjackGameInstance.orderCard("player");
+                await game.setBet(newBet)
+                let newCard = await game.orderCard("player");
                 socket.emit("petitionPCards", newCard);
-                let result = await blackjackGameInstance.checkScore("both");
+                let result = await game.checkScore("both");
                 if (result.finish === false) {
-                    let dealerScore = await blackjackGameInstance.score("dealer");
+                    let dealerScore = await game.score("dealer");
                     while (dealerScore <= 16) {
                         socket.emit("flipCard")
                         await delay(1)
-                        let newDCard = await blackjackGameInstance.orderCard("dealer");
-                        dealerScore = await blackjackGameInstance.score("dealer");
+                        let newDCard = await game.orderCard("dealer");
+                        dealerScore = await game.score("dealer");
                         socket.emit("petitionDCards", newDCard, 2);
                         await delay(1.5);
                     }
-                    let check1 = await blackjackGameInstance.checkScore("both");
+                    let check1 = await game.checkScore("both");
                     if (check1.finish === false) {
-                        let check2 = await blackjackGameInstance.checkScore("comparate");
+                        let check2 = await game.checkScore("comparate");
                         socket.emit("result", check2)
                     }
                     else {
@@ -117,9 +118,9 @@ export function configureSocket(server) {
                 }
             }
             else {
-                let newCard = await blackjackGameInstance.orderCard("player");
+                let newCard = await game.orderCard("player");
                 socket.emit("petitionPCards", newCard);
-                let result = await blackjackGameInstance.checkScore("both");
+                let result = await game.checkScore("both");
                 if (result.finish === true) {
                     socket.emit("result", result)
                 }
@@ -131,19 +132,19 @@ export function configureSocket(server) {
         })
 
         socket.on("puntuationTotal", async () => {
-            let totalPlayer = await blackjackGameInstance.score("player");
-            let totalDealer = await blackjackGameInstance.score("dealer");
-            let bet = await blackjackGameInstance.bet
+            let totalPlayer = await game.score("player");
+            let totalDealer = await game.score("dealer");
+            let bet = await game.bet
             socket.emit("puntuationDOM", totalPlayer, totalDealer, bet);
         });
         socket.on("finish-game", async (result) => {
             await userService.betResult(socket.username, result.bet, result.whoLose)
-            await blackjackGameInstance.finishGame()
+            await game.finishGame()
         })
         socket.on("disconnect", async () => {
-            let bet = await blackjackGameInstance.bet
+            let bet = await game.bet
             await userService.betResult(socket.username, bet, "player")
-            await blackjackGameInstance.finishGame()
+            await game.finishGame()
             return
         })
     });
