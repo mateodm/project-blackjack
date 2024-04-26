@@ -42,7 +42,7 @@ export function configureSocket(server) {
                 let card4 = await game.orderCard("dealerHide");
                 await game.setBet(bet)
                 await delay(3)
-                socket.emit("options")
+                socket.emit("options", game.round)
                 await delay(1)
             }
             else {
@@ -51,6 +51,7 @@ export function configureSocket(server) {
         });
 
         socket.on("ordered-card", async () => {
+            await game.round++
             let newCard = await game.orderCard("player");
             socket.emit("petitionPCards", newCard);
             let result = await game.checkScore("both");
@@ -59,7 +60,7 @@ export function configureSocket(server) {
             }
             else {
                 await delay(3)
-                socket.emit("options")
+                socket.emit("options", game.round)
             }
         });
 
@@ -88,6 +89,7 @@ export function configureSocket(server) {
         socket.on("double", async () => {
             let user = await userService.getByEmailSafe(socket.email)
             let oldBet = await game.bet
+            await game.round++
             let newBet = oldBet * 2;
             if (user.chips >= newBet) {
                 await game.setBet(newBet)
@@ -126,7 +128,7 @@ export function configureSocket(server) {
                 }
                 else {
                     await delay(3)
-                    socket.emit("options")
+                    socket.emit("options", game.round)
                 }
             }
         })

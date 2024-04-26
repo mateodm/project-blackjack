@@ -10,6 +10,7 @@ import router from "./routes/index.router.js";
 import cookieParser from "cookie-parser";
 import notFoundHandler from "./middlewares/notFound.js";
 import { configureSocket } from "./blackjack.js";
+import axios from "axios";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,6 +33,13 @@ server.use(notFoundHandler)
 
 const ready = () => console.log("Server running in port " + config.port + __dirname)
 
+/* PING para mantener el servidor activo */
+async function ping() {
+  await axios.get("https://project-blackjack.onrender.com/login")
+}
+
+ping()
+setInterval(ping, 240000)
 
 
 /* Handlebars & Routers */

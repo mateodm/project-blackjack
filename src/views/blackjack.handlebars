@@ -68,10 +68,12 @@
             </div>
         </div>
     </div>
-    <div id="options" class="bj-options-container d-none">
+    <div id="bj-options-container" class="bj-options-container ">
+        <div id="options" class="d-none">
         <button onclick="orderCard()" class="order-button animate__animated animate__zoomIn button-sound"><img class="bj-options-icons" src="/imagenes/bj-options/agregar.png"> <p></p>Pedir más</button>
         <button onclick="stay()" class="order-button animate__animated animate__zoomIn button-sound"><img class="bj-options-icons"src="/imagenes/bj-options/eliminar.png"><p></p>Plantarse</button>
-        <button id="double" onclick="double()" class="order-button animate__animated animate__zoomIn button-sound"><img src="/imagenes/bj-options/apuesta.png" class="bj-options-icons"><p></p>Doblar</button>
+        </div>
+        <button id="options-double" onclick="double()" class="order-button animate__animated animate__zoomIn button-sound d-none"><img src="/imagenes/bj-options/apuesta.png" class="bj-options-icons"><p></p>Doblar</button>
     </div>
 </section>
 <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>

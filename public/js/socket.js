@@ -20,11 +20,18 @@ function activeSocket(bet) {
         container.innerHTML += html;
         socket.emit("puntuationTotal")
     });
-    socket.on("options", data => {
+    socket.on("options", round => {
         let opacity = document.getElementById("opacity")
         let options = document.getElementById("options")
+        let container = document.getElementById("bj-options-container")
+        let double = document.getElementById("options-double")
+
         opacity.classList.add("bj-opacity")
         options.classList.remove("d-none")
+        container.classList.remove("d-none")
+        if(round === 1) {
+          double.classList.remove("d-none")
+        }
     })
     socket.on("petitionDCards", (data, round) => {
         cardSound.play()

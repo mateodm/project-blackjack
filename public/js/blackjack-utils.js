@@ -11,6 +11,8 @@ function reverseCard() {
 function hideOptionsBJ() {
     let options = document.getElementById("options").classList.add("d-none")
     let opacity = document.getElementById("opacity").classList.remove("bj-opacity")
+    let container = document.getElementById("bj-options-container").classList.add("d-none")
+    let double = document.getElementById("options-double").classList.add("d-none")
     return
 }
 
